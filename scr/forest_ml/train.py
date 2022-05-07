@@ -4,7 +4,7 @@ from joblib import dump
 import click
 import mlflow
 import mlflow.sklearn
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
 
 from .data import get_dataset
 from .pipeline import create_pipeline
@@ -73,10 +73,16 @@ def train(
         pipeline = create_pipeline(use_scaler, max_iter, logreg_c, random_state)
         pipeline.fit(features_train, target_train)
         accuracy = accuracy_score(target_val, pipeline.predict(features_val))
+        recall = recall_score(target_val, pipeline.predict(features_val), average='weighted')
+        precision = precision_score(target_val, pipeline.predict(features_val), average='weighted')
+        f1 = f1_score(target_val, pipeline.predict(features_val), average='weighted')
         mlflow.log_param("use_scaler", use_scaler)
         mlflow.log_param("max_iter", max_iter)
         mlflow.log_param("logreg_c", logreg_c)
         mlflow.log_metric("accuracy", accuracy)
         click.echo(f"Accuracy: {accuracy}.")
+        click.echo(f"Recall: {recall}.")
+        click.echo(f"Precision: {precision}.")
+        click.echo(f"F1-score: {f1}.")
         dump(pipeline, save_model_path)
         click.echo(f"Model is saved to {save_model_path}.")
