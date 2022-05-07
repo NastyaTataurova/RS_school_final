@@ -3,9 +3,20 @@ name = "rs_final"
 version = "0.1.0"
 description = ""
 authors = ["Anastasiya Tataurova <nastia.tataurova@gmail.com>"]
+packages = [
+    { include = "scr" }
+]
+
+[tool.poetry.scripts]
+train = "scr.forest_ml.train:train"
 
 [tool.poetry.dependencies]
 python = "^3.9"
+click = "^8.1.3"
+pandas = "^1.4.2"
+sklearn = "^0.0"
+joblib = "^1.1.0"
+mlflow = "^1.25.1"
 
 [tool.poetry.dev-dependencies]
 
