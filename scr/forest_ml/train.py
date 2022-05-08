@@ -5,6 +5,7 @@ import click
 import mlflow
 import mlflow.sklearn
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
+from sklearn.model_selection import cross_val_score
 
 from .data import get_dataset
 from .pipeline import create_pipeline
@@ -72,10 +73,10 @@ def train(
     with mlflow.start_run():
         pipeline = create_pipeline(use_scaler, max_iter, logreg_c, random_state)
         pipeline.fit(features_train, target_train)
-        accuracy = accuracy_score(target_val, pipeline.predict(features_val))
-        recall = recall_score(target_val, pipeline.predict(features_val), average='weighted')
-        precision = precision_score(target_val, pipeline.predict(features_val), average='weighted')
-        f1 = f1_score(target_val, pipeline.predict(features_val), average='weighted')
+        accuracy = cross_val_score(pipeline, features_val, target_val, scoring = "accuracy", cv=5).mean()
+        recall = cross_val_score(pipeline, features_val, target_val, scoring = "recall_weighted", cv=5).mean()
+        precision = cross_val_score(pipeline, features_val, target_val, scoring = "precision_weighted", cv=5).mean()
+        f1 = cross_val_score(pipeline, features_val, target_val, scoring = "f1_weighted", cv=5).mean() 
         mlflow.log_param("use_scaler", use_scaler)
         mlflow.log_param("max_iter", max_iter)
         mlflow.log_param("logreg_c", logreg_c)
