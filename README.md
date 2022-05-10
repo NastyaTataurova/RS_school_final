@@ -6,7 +6,7 @@ The project uses the [Forest train dataset](https://www.kaggle.com/competitions/
 
 ## Usage
 1. Clone this repository to your machine.
-2. Download [Forest train dataset]:https://www.kaggle.com/competitions/forest-cover-type-prediction, save csv locally (default path is data/forest-cover-type-prediction/train.csv in repository's root).
+2. Download [Forest train dataset](https://www.kaggle.com/competitions/forest-cover-type-prediction), save csv locally (default path is data/forest-cover-type-prediction/train.csv in repository's root).
 3. Make sure Python 3.9 is installed on your machine.
 4. Download poetry with this command:
 ```bash
