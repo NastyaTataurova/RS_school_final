@@ -31,4 +31,5 @@ poetry run mlflow ui
 
 ## Experiments with models (MLFlow)
 The figure below shows the results of experiments with two models. Different hyperparameters were selected for each model, the best quality was obtained by model forest (RandomForestClassifier) with parameters: max_depht = 15 and n_estimators = 100.
+
 <img width="606" alt="image" src="https://user-images.githubusercontent.com/49210968/167652720-ff0ba8cd-f060-4321-b28b-5f51483fe5f7.png">
